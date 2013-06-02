@@ -182,7 +182,7 @@ using Android.Provider;
 	private void WriteFloatField(string propertyName, string def){
 		WriteLine("\t\tpublic float "+PrefToCamel(propertyName) +" {");
 		WriteLine("\t\t\tget{");
-		WriteLine("\t\t\t\treturn sharedPreferences.GetFloat(\""+propertyName+"\","+float.Parse(def)+");");
+		WriteLine("\t\t\t\treturn float.Parse(sharedPreferences.GetString(\""+propertyName+"\",\""+float.Parse(def)+"\"));");
 		WriteLine("\t\t\t}");
 		WriteLine("\t\t\tset{");
 		WriteLine("\t\t\t\tsharedPreferences.Edit().PutFloat(\""+propertyName+"\",value).Commit();");
@@ -191,17 +191,17 @@ using Android.Provider;
 	private void WriteIntField(string propertyName, string def){
 		WriteLine("\t\tpublic int "+PrefToCamel(propertyName) +" {");
 		WriteLine("\t\t\tget{");
-		WriteLine("\t\t\t\treturn sharedPreferences.GetInt(\""+propertyName+"\","+int.Parse(def)+");");
+		WriteLine("\t\t\t\treturn int.Parse(sharedPreferences.GetString(\""+propertyName+"\",\""+int.Parse(def).ToString()+"\"));");
 		WriteLine("\t\t\t}");
 		WriteLine("\t\t\tset{");
 		WriteLine("\t\t\t\tsharedPreferences.Edit().PutInt(\""+propertyName+"\",value).Commit();");
 		WriteLine("\t\t\t}");
 	}
 
-	private void WriteLongField(string propertyName){
+	private void WriteLongField(string propertyName, string def){
 		WriteLine("\t\tpublic long "+PrefToCamel(propertyName) +" {");
 		WriteLine("\t\t\tget{");
-		WriteLine("\t\t\t\treturn sharedPreferences.GetLong(\""+propertyName+"\",-1);");
+		WriteLine("\t\t\t\treturn long.Parse(sharedPreferences.GetString(\""+propertyName+"\",\""+def+"\"));");
 		WriteLine("\t\t\t}");
 
 		WriteLine("\t\t\tset{");
