@@ -29,9 +29,14 @@ using Android.Provider;
 	WriteLine("namespace "+projectName+".Settings {");
 #>
 <# 
-	var files = Directory.GetFiles(Host.ResolvePath(@"..\Resources\xml\"),"*.xml");
-	foreach(var file in files){
-		Process(file);
+	
+	var resourcesDirectory = @"..\Resources\xml\";
+	var dir = Host.ResolvePath(resourcesDirectory);
+	if(Directory.Exists(dir)){
+		var files = Directory.GetFiles(Host.ResolvePath(resourcesDirectory),"*.xml");
+		foreach(var file in files){
+			Process(file);
+		}
 	}
 #>
 

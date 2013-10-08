@@ -12,6 +12,7 @@
 <#@ import namespace="System.Xml" #>
 <#@ import namespace="System.Xml.Linq" #>
 <#@ import namespace="System.Xml.XPath" #>
+using Android.App;
 using Android.Widget;
 using Android.Views;
 using Android.Content;
@@ -58,6 +59,8 @@ public static class LayoutFactory {
 		WriteLine("\t\t\treturn result;");
 		WriteLine("\t\t}");
 	}
+
+
 	
 	public void Process(string layoutRelativePathPath)
 	{
@@ -66,13 +69,13 @@ public static class LayoutFactory {
 		var className = System.IO.Path.GetFileNameWithoutExtension(layoutRelativePathPath);
 		WriteLine("\tpublic partial class " + className+"{");
 		WriteLine("\t\tpublic Context Context{get;private set;}");
-		WriteLine("\t\tprivate readonly View view;");
-		WriteLine("\t\tpublic View View{get {return view;}}");
-		WriteLine("\t\tpublic " + className+"(View v){view=v;Context = view.Context;}");
+		WriteLine("\t\tprivate readonly View rootView;");
+		WriteLine("\t\tpublic View View {get {return rootView;}}");
+		WriteLine("\t\tpublic " + className+"(View v){rootView=v;Context = rootView.Context;}");
 		WriteLine("\t\tpublic " + className+"(Context c){");
 		WriteLine("\t\t\tContext = c;");
 		WriteLine("\t\t\tvar inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;");
-		WriteLine("\t\t\tif (inflater != null) view = inflater.Inflate(Resource.Layout."+className+", null);");
+		WriteLine("\t\t\tif (inflater != null) \n\t\t\trootView = inflater.Inflate(Resource.Layout."+className+", null);");
 		WriteLine("\t\t}");
 		XDocument document;
 
@@ -120,7 +123,7 @@ public static class LayoutFactory {
 		// We need to have a way to find the class which maps to the xml namespace of the view... hmmm
 		foreach (XElement element in dataElements)
 		{
-			WriteLine("\t\tpublic "+element.Name+" Root{get {return view as "+element.Name+";}}");
+			WriteLine("\t\tpublic "+element.Name+" Root{get {return rootView as "+element.Name+";}}");
 		}
 	}
 
@@ -158,7 +161,7 @@ public static class LayoutFactory {
 				WriteLine("\t\tprivate "+elementName +" " + fieldName + " = null;");
 				WriteLine("\t\tpublic "+elementName +" "+propertyName +" {");
 				WriteLine("\t\t\tget{");
-				WriteLine("\t\t\t\treturn "+fieldName+"??("+fieldName + "=view.FindViewById(Resource.Id." + propertyName + ") as " + elementName+");");
+				WriteLine("\t\t\t\treturn "+fieldName+"??("+fieldName + "=rootView.FindViewById(Resource.Id." + propertyName + ") as " + elementName+");");
 				WriteLine("\t\t\t}");
 				WriteLine("\t\t}");
 				
