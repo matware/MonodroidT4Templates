@@ -91,7 +91,7 @@ public static class LayoutFactory {
 
 		var widgets = new string []{"AnalogClock","AutoCompleteTextView","Button","Checkbox","Chronometer","DatePicker","DigitalClock","EditText","ExpandableListView",
 									"Gallery","GridView","ImageButton","ImageView","ListView","MediaController","ProgressBar","RadioGroup","RadioButton","RatingBar","ScrollView",
-									"SeekBar","Spinner","TabWidget","TextView", "TimePicker","ToggleButton","VideoView","WebView"};
+									"SeekBar","Spinner","SurfaceView","Switch","TabWidget","TextView", "TimePicker","ToggleButton","VideoView","WebView"};
 		
 		var layouts = new string []{"AbsoluteLayout","FrameLayout","ImageSwitcher","LinearLayout","RelativeLayout","TableLayout","TableRow","TextSwitcher","ViewAnimator","ViewFlipper","ViewSwitcher"};
 		
